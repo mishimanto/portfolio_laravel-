@@ -99,7 +99,7 @@
 
         <div class="grid md:grid-cols-2 gap-8">
             <div>
-                <img src="{{ asset('storage/images/' . $portfolio->image) }}" class="w-full rounded-lg shadow-lg" alt="{{ $portfolio->title }}">
+                <img src="{{ asset('storage/' . $portfolio->image) }}" class="w-full rounded-lg shadow-lg" alt="{{ $portfolio->title }}">
             </div>
 
             <div class="portfolio-info">

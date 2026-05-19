@@ -1650,12 +1650,12 @@ section .container {
       @foreach($portfolios as $portfolio)
         <div class="col-lg-4 col-md-6 portfolio-item {{ $portfolio->category->slug }}">
           <div class="portfolio-wrap">
-            <img src="{{ asset('storage/images/' . $portfolio->image) }}" class="img-fluid" alt="{{ $portfolio->title }}">
+            <img src="{{ asset('storage/' . $portfolio->image) }}" class="img-fluid" alt="{{ $portfolio->title }}">
             <div class="portfolio-info">
               <h4>{{ $portfolio->title }}</h4>
               <p>{{ $portfolio->category->name }}</p>
               <div class="portfolio-links">
-                <a href="{{ asset('storage/images/' . $portfolio->image) }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $portfolio->title }}"><i class="bx bx-plus"></i></a>
+                <a href="{{ asset('storage/' . $portfolio->image) }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $portfolio->title }}"><i class="bx bx-plus"></i></a>
                 <a href="{{ route('portfolio.details', $portfolio->id) }}" data-gallery="portfolioDetailsGallery" data-glightbox="type: external" class="portfolio-details-lightbox" title="Portfolio Details"><i class="bx bx-link"></i></a>
               </div>
             </div>

@@ -24,7 +24,7 @@
                 @foreach($portfolios as $portfolio)
                 <tr class="border-b cursor-move" data-id="{{ $portfolio->id }}">
                     <td class="px-6 py-4">
-                        <img src="{{ asset('storage/images/' . $portfolio->image) }}" class="w-12 h-12 object-cover rounded" alt="{{ $portfolio->title }}">
+                        <img src="{{ asset('storage/' . $portfolio->image) }}" class="w-12 h-12 object-cover rounded" alt="{{ $portfolio->title }}">
                     </td>
                     <td class="px-6 py-4 font-semibold">{{ $portfolio->title }}</td>
                     <td class="px-6 py-4">
