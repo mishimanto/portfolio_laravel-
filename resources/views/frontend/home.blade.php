@@ -697,9 +697,63 @@ section .container {
 }
 
 @media (max-width: 768px) {
+
   .section-title p {
     font-size: 1.8rem;
   }
+
+  /* only active underline */
+  .navbar .active::after {
+    width: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* remove hover underline */
+  .navbar a:hover::after {
+    width: 0;
+  }
+
+  /* hover effect */
+  .navbar li:hover a {
+    color: white;
+    transform: translateX(6px);
+  }
+
+  .navbar a {
+    transition: all .3s ease;
+  }
+
+}
+
+@media (max-width: 991px) {
+
+  .section-title p {
+    font-size: 1.8rem;
+  }
+
+  /* only active underline */
+  .navbar .active::after {
+    width: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* remove hover underline */
+  .navbar a:hover::after {
+    width: 0;
+  }
+
+  /* hover move + color */
+  .navbar li:hover a {
+    color: white;
+    transform: translateX(6px);
+  }
+
+  .navbar a {
+    transition: all .3s ease;
+  }
+
 }
 
 /* About Section */
@@ -1435,7 +1489,7 @@ section .container {
 <!-- Header -->
 <header id="header">
   <div class="container">
-    <h3>Hello, it's <span class="wave">👋</span></h3>
+    <h3>Hello, it's <span class="wave">ðŸ‘‹</span></h3>
     <h1>{{ $about->title ?? 'Portfolio' }}</h1>
     <div class="typing-container">
       <h2>I'm a <span id="typed-text"></span><span class="cursor">|</span></h2>
@@ -1476,7 +1530,7 @@ section .container {
       <div class="row">
         <div class="col-lg-4">
           @if($about && $about->profile_pic)
-            <img src="{{ asset('storage/images/' . $about->profile_pic) }}" class="img-fluid" alt="">
+            <img src="{{ asset('storage/images/' . $about->profile_pic) }}" class="img-fluid" alt="" loading="lazy">
           @endif
         </div>
         <div class="col-lg-8 pt-4 pt-lg-0 content">
@@ -1650,12 +1704,12 @@ section .container {
       @foreach($portfolios as $portfolio)
         <div class="col-lg-4 col-md-6 portfolio-item {{ $portfolio->category->slug }}">
           <div class="portfolio-wrap">
-            <img src="{{ asset('storage/' . $portfolio->image) }}" class="img-fluid" alt="{{ $portfolio->title }}">
+            <img loading="lazy" src="{{ asset('storage/' . $portfolio->image) }}" class="img-fluid" alt="{{ $portfolio->title }}">
             <div class="portfolio-info">
               <h4>{{ $portfolio->title }}</h4>
               <p>{{ $portfolio->category->name }}</p>
               <div class="portfolio-links">
-                <a href="{{ asset('storage/' . $portfolio->image) }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $portfolio->title }}"><i class="bx bx-plus"></i></a>
+                {{-- <a href="{{ asset('storage/images/' . $portfolio->image) }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $portfolio->title }}"><i class="bx bx-plus"></i></a> --}}
                 <a href="{{ route('portfolio.details', $portfolio->id) }}" data-gallery="portfolioDetailsGallery" data-glightbox="type: external" class="portfolio-details-lightbox" title="Portfolio Details"><i class="bx bx-link"></i></a>
               </div>
             </div>
@@ -1928,11 +1982,24 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     on('click', '.mobile-nav-toggle', function() {
-        const navbar = select('#navbar');
+        const navbar = select('#navbar ul'); // important
         navbar.classList.toggle('navbar-mobile');
-        this.classList.toggle('bi-list');
-        this.classList.toggle('bi-x');
+
+        const icon = this.querySelector('i');
+        icon.classList.toggle('bi-list');
+        icon.classList.toggle('bi-x');
     });
+
+    on('click', '#navbar .nav-link', function() {
+        const navbar = select('#navbar ul');
+        if (navbar.classList.contains('navbar-mobile')) {
+            navbar.classList.remove('navbar-mobile');
+
+            const toggle = select('.mobile-nav-toggle i');
+            toggle.classList.remove('bi-x');
+            toggle.classList.add('bi-list');
+        }
+    }, true);
 
     on('click', '#navbar .nav-link', function(e) {
         let section = select(this.hash);
